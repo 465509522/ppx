@@ -31,7 +31,9 @@ public class BrowseHook extends SuperbHook {
 
 	@Override
 	protected void onHook(ClassLoader cl) {
-		hookMethod(AUTO_BROWSE_ENABLE, "com.sup.android.detail.ui.j", "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class, new XC_MethodHook() {
+		//ui.j
+		//ui.DetailPagerFragment
+		hookMethod(AUTO_BROWSE_ENABLE, "com.sup.android.detail.ui.DetailPagerFragment", "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class, new XC_MethodHook() {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) {
 				viewPager = getObjectField(param.thisObject, "A");
@@ -41,7 +43,9 @@ public class BrowseHook extends SuperbHook {
 		hookMethod(AUTO_BROWSE_VIDEO_MODE, "com.sup.superb.video.viewholder.a", "onPlayerStateChanged", int.class, new XC_MethodHook() {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) {
-				Object cell = callMethod(param.thisObject, "ab");
+				//3.5.0: ab
+				//3.5.1: P
+				Object cell = callMethod(param.thisObject, "P");
 				if (cell != null && (int) callMethod(cell, "getCellType") == 1 && (int) param.args[0] == 5) {
 					Object viewPager = BrowseHook.viewPager;
 					if (viewPager != null) {
